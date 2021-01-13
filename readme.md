@@ -3,3 +3,59 @@
 #### Web service: nodejs  
 #### API: Google map  
 #### Front-end: bootstrap4, jquery 
+
+``` 
+<body>
+    <div id='map'></div> 
+    <ul id='listStation'></ul>
+    <div id='btnStation'></div>
+    <div id='btnLat'></div>
+    <div id='btnLng'></div>
+```  
+```
+<script src='https://maps.googleapis.com/maps/api/js'></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+```            
+<script>
+ 
+ //แสดงแผนที่
+function initMap() {
+        // Create the map.
+    var map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 6,
+          center: {lat: 13, lng: 100},
+          mapTypeId: 'terrain'
+        });
+    $.getJSON('localtion.json',function(data){//$.get('https://algorist.club/coffee').done(show)
+    $.each(data, function(LatLng,local){
+        console.log(local.station+': '+local.lat+','+local.lng)
+        var cityCircle = new google.maps.Circle({
+                strokeColor: '#CCCCCC',//ขอบสี
+                strokeOpacity: 0.8,
+                strokeWeight: 2,//ขอบ
+                fillColor: '#cc0000',//พื้นที่สี
+                fillOpacity: 0.35,
+                map: map,
+                //center: locations[i].center,//{lat:13, lng:100}
+                //center:{lat:13.851667,lng:102.032778},
+                center:{lat:local.lat, lng:local.lng},
+                //radius: Math.sqrt(locations[i].population) * 100
+                radius: Math.sqrt(500000) * 100
+                });
+
+    });
+});
+}  
+//แสดงชื่อจังหวัดที่ตั้งสถานี
+$.getJSON('localtion.json',function(data){//$.get('https://algorist.club/coffee').done(show)
+    $.each(data, function(i,local){
+       // $('#listStation').append('<li>'+local.station+'</li>')//แสดงแบบJQuery
+       $('#btnStation').append('<button>'+local.station+'</button>')//แสดงแบบJQuery
+       $('#btnLat').append('<button>Lat: '+local.lat+'</button>')//แสดงแบบJQuery
+       $('#btnLng').append('<button>Lng: '+local.lng+'</button>')//แสดงแบบJQuery
+       console.log(local.station+': '+local.lat+','+local.lng)
+    });
+});
+</script>
+</body> 
+``` 
