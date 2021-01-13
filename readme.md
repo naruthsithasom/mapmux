@@ -2,8 +2,9 @@
 ![Screen Shot 2021-01-13 at 09 22 57](https://user-images.githubusercontent.com/25115342/104398286-04868900-5581-11eb-8582-2b2b87528127.png)  
 #### Web service: nodejs  
 #### API: Google map  
-#### Front-end: bootstrap4, jquery 
-
+#### Front-end: bootstrap4, jquery  
+___
+#### สร้าง tag html ตั้งชื่อ id
 ``` 
 <body>
     <div id='map'></div> 
@@ -12,13 +13,15 @@
     <div id='btnLat'></div>
     <div id='btnLng'></div>
 ```  
+#### ดึงข้อมูล fetch API google map และใช้ CDN JQuery
 ```
 <script src='https://maps.googleapis.com/maps/api/js'></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-```            
+```   
+#### แสดงแผนที่บน JS
+```          
 <script>
- 
- //แสดงแผนที่
+
 function initMap() {
         // Create the map.
     var map = new google.maps.Map(document.getElementById('map'), {
@@ -26,7 +29,7 @@ function initMap() {
           center: {lat: 13, lng: 100},
           mapTypeId: 'terrain'
         });
-    $.getJSON('localtion.json',function(data){//$.get('https://algorist.club/coffee').done(show)
+    $.getJSON('localtion.json',function(data){
     $.each(data, function(LatLng,local){
         console.log(local.station+': '+local.lat+','+local.lng)
         var cityCircle = new google.maps.Circle({
@@ -47,12 +50,12 @@ function initMap() {
 });
 }  
 //แสดงชื่อจังหวัดที่ตั้งสถานี
-$.getJSON('localtion.json',function(data){//$.get('https://algorist.club/coffee').done(show)
+$.getJSON('localtion.json',function(data){
     $.each(data, function(i,local){
-       // $('#listStation').append('<li>'+local.station+'</li>')//แสดงแบบJQuery
-       $('#btnStation').append('<button>'+local.station+'</button>')//แสดงแบบJQuery
-       $('#btnLat').append('<button>Lat: '+local.lat+'</button>')//แสดงแบบJQuery
-       $('#btnLng').append('<button>Lng: '+local.lng+'</button>')//แสดงแบบJQuery
+       // $('#listStation').append('<li>'+local.station+'</li>') //แสดงแบบ JQuery
+       $('#btnStation').append('<button>'+local.station+'</button>') //แสดงแบบ JQuery
+       $('#btnLat').append('<button>Lat: '+local.lat+'</button>') //แสดงแบบ JQuery
+       $('#btnLng').append('<button>Lng: '+local.lng+'</button>') //แสดงแบบ JQuery
        console.log(local.station+': '+local.lat+','+local.lng)
     });
 });
